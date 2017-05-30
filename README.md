@@ -1,41 +1,45 @@
-# RubyvmFrozencore
+# RubyVM::FrozenCore
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rubyvm_frozencore`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'rubyvm_frozencore'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install rubyvm_frozencore
+An evil gem to expose hidden class in CRuby core.
 
 ## Usage
 
-TODO: Write usage instructions here
+```rb
+RubyVM::FrozenCore
+# NameError: uninitialized constant RubyVM::FrozenCore
 
-## Development
+require 'rubyvm/frozencore'
+RubyVM::FrozenCore #=> BasicObject
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+RubyVM::FrozenCore.methods
+# => [:"core#set_method_alias",
+#  :"core#set_variable_alias",
+#  :"core#undef_method",
+#  :"core#define_method",
+#  :"core#define_singleton_method",
+#  :"core#set_postexe",
+#  :"core#hash_from_ary",
+#  :"core#hash_merge_ptr",
+#  :"core#hash_merge_kwd",
+#  ...
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+# You can call hidden core methods with this class.
+# Of course you can use Module.remove_method in normal use case. This is a useless example.
+RubyVM::FrozenCore.send(:"core#undef_method", String, :prepend)
 
-## Contributing
+"b".prepend("a")
+# NoMethodError: undefined method `prepend' for "b":String
+```
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/Takashi Kokubun/rubyvm_frozencore.
+## See also
 
+There is already a gem with the same purpose.
+
+https://github.com/charliesome/frozen_core
+
+But it relied on a bug which was fixed in Ruby 2.1.0.
+rubyvm-frozencore works with Ruby >= 2.1.0.
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
