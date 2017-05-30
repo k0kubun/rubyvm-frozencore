@@ -1,17 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'rubyvm/frozencore/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "rubyvm-frozencore"
-  spec.version       = RubyvmFrozencore::VERSION
+  spec.version       = "0.1.0"
   spec.authors       = ["Takashi Kokubun"]
   spec.email         = ["takashikkbn@gmail.com"]
 
   spec.summary       = %q{Expose RubyVM::FrozenCore}
   spec.description   = %q{Expose RubyVM::FrozenCore}
-  spec.homepage      = "https:://github.com/k0kubun/rubyvm-frozencore"
+  spec.homepage      = "https://github.com/k0kubun/rubyvm-frozencore"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
